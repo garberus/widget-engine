@@ -1,9 +1,8 @@
 'use strict';
 
-$we.register('barchart', ['bower_components/underscore/underscore.js', 'css/barchart.css'], function() {
+$we.register('barchart', ['bower_components/underscore/underscore.js', 'css/barchart.css'], function(charts) {
 
   var template = 'templates/barchart.tpl';
-  var charts = document.querySelectorAll('[data-widget-type="barchart"]');
   var i = 0, l = charts.length;
 
   var renderChart = function(el, widgetData) {

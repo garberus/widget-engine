@@ -48,7 +48,16 @@
       l = widgetDependencies.length,
       scriptDependencies = [],
       cssDependencies = [],
+      nodes = null,
       engine = this;
+
+    // find out if there are any nodes that match the widget
+    nodes = document.querySelectorAll('[data-widget-type="' + widgetName + '"]');
+
+    if (!nodes.length) {
+      // no matching nodes for this widget - do nothing
+      return;
+    }
 
     if (!this._widgets[widgetName]) {
       this._widgets[widgetName] = {
@@ -56,7 +65,7 @@
       };
     } else {
       // dependencies for this widget are already loaded/loading
-      widgetLogicFn.call(engine);
+      widgetLogicFn.call(engine, nodes);
     }
 
     for (;i<l;i++) {
@@ -69,7 +78,7 @@
     }
 
     $script(scriptDependencies, function() {
-      widgetLogicFn.call(engine);
+      widgetLogicFn.call(engine, nodes);
     });
 
     if (cssDependencies.length) {
